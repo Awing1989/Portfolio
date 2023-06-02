@@ -1,0 +1,19 @@
+SELECT * FROM countries;
+
+SELECT name, MAX(density_per_sq_km) AS Country_with_Highest_Population_Density FROM countries;
+SELECT name, MIN(density_per_sq_km) AS Country_with_Lowest_Population_Density FROM countries;
+SELECT AVG(density_per_sq_km) as Average_Global_Population_Density FROM countries;
+
+SELECT name FROM countries WHERE population<1000000 AND population >800000 GROUP BY name HAVING density_per_sq_km > 100;
+
+SELECT COUNT (*),
+CASE
+WHEN population <100000 THEN 'Really Small'
+WHEN population <1000000 THEN 'Small'
+WHEN population <10000000 THEN 'Medium'
+WHEN population <100000000 THEN 'Big'
+ELSE 'Null'
+END AS "Population_category" FROM countries
+GROUP BY "Population_Category";
+
+SELECT name AS Tiny_Countries_Or_Giant_Countries FROM countries WHERE population <100000 OR population>1000000000;
