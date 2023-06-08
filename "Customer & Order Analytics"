@@ -1,0 +1,4 @@
+SELECT distinct product, quantity
+FROM BIT_DB.FebSales
+WHERE location
+LIKE '%Los Angeles%';
