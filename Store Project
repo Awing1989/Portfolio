@@ -17,3 +17,20 @@ INSERT INTO Andy_CD_STORE VALUES (15, 'Best of: Arctic Monkeys', 13, 2019, 9.99)
 SELECT * FROM Andy_CD_STORE;
 SELECT name, quantity_of_songs, release_year, price FROM Andy_CD_Store ORDER BY price;
 SELECT ROUND(AVG(price)) FROM Andy_CD_Store;
+
+CREATE TABLE store (id INTEGER PRIMARY KEY, name TEXT, price_per_lbs INTEGER, Fruit_Vegetable NUMERIC, On_Sale NUMERIC);
+INSERT INTO store VALUES (1, 'Bananas', 0.99, 1, 0);
+INSERT INTO store VALUES (2, 'Apples', 1.99, 1, 1);
+INSERT INTO store VALUES (3, 'Cantalope', 1.49, 1, 0);
+INSERT INTO store VALUES (4, 'Squash', 0.29, 0, 1);
+INSERT INTO store VALUES (5, 'Peanuts', 0.59, Null, 0);
+INSERT INTO store VALUES (6, 'Zucchini', 0.99, 0, 0);
+INSERT INTO store VALUES (7, 'Watermelon', 0.24, 0, 0);
+INSERT INTO store VALUES (8, 'Lettus', 0.22, 0, 0);
+INSERT INTO store VALUES (9, 'Spinach', 0.23, 0, 0);
+INSERT INTO store VALUES (10, 'Red Pepper', 0.24, 0, 0);
+INSERT INTO store VALUES (11, 'Caramel Squares', 2.29, 0, 0);
+INSERT INTO store VALUES (12, 'Green Pepper', 0.79, 0, 0);
+INSERT INTO store VALUES (13, 'Potatoes', 1.29, 0, 0);
+INSERT INTO store VALUES (14, 'Strawberries', 4.99, 0, 0);
+INSERT INTO store VALUES (15, 'Blueberries', 6.99, 0,  0);
