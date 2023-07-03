@@ -1,3 +1,46 @@
+1.  How many Chargers does the cellphone store have on hand (in inventory)?
+
+2.  What percentage of purchased Plans were plan A.
+
+SELECT 
+100*COUNT(*)/SUM(COUNT(*))
+
+
+1.  
+
+What was the first item from the column done by each column?
+
+SELECT DISTINCT s.column, sub.column, m.column
+FROM database.table AS S
+INNER JOIN
+  (SELECT MIN(s1.item), s1.column
+  FROM database.table AS s1
+  GROUP BY s1.column
+  ) AS sub
+ON s.column=sub.column
+LEFT JOIN database.table AS m
+ON s.column=m.column
+
+What is the most purchased item on the menu and how many times was it purchased by all customers?
+
+SELECT COUNT(s.column), me.column
+FROM database.column AS s
+LEFT JOIN database.column AS m
+ON s.column=m.column
+GROUP BY m.column
+ORDER BY m.column
+LIMIT 1;
+
+What is the most purchased item on the menu and how many times was it purchased by all customers?
+
+SELECT m.column, COUNT(s.column)
+FROM database.table AS s
+LEFT JOIN database.table AS m
+ON s.column=m.column
+GROUP BY m.column=s.column
+
+
+
 CREATE SCHEMA ABC_Wireless;
 SET search_path = ABC_Wireless;
 
@@ -106,37 +149,3 @@ VALUES
   ('2023-07-04', '714', '003', 'B', '1', 'AB', '01'),
   ('2023-07-05', '715', '004', 'C', '2', 'AC', '03'),
   ('2023-07-06', '716', '005', 'A', '1', 'AA', '03');
-
-1.  
-
-What was the first item from the column done by each column?
-
-SELECT DISTINCT s.column, sub.column, m.column
-FROM database.table AS S
-INNER JOIN
-  (SELECT MIN(s1.item), s1.column
-  FROM database.table AS s1
-  GROUP BY s1.column
-  ) AS sub
-ON s.column=sub.column
-LEFT JOIN database.table AS m
-ON s.column=m.column
-
-What is the most purchased item on the menu and how many times was it purchased by all customers?
-
-SELECT COUNT(s.column), me.column
-FROM database.column AS s
-LEFT JOIN database.column AS m
-ON s.column=m.column
-GROUP BY m.column
-ORDER BY m.column
-LIMIT 1;
-
-What is the most purchased item on the menu and how many times was it purchased by all customers?
-
-SELECT m.column, COUNT(s.column)
-FROM database.table AS s
-LEFT JOIN database.table AS m
-ON s.column=m.column
-GROUP BY m.column=s.column
-
