@@ -1,0 +1,108 @@
+CREATE SCHEMA ABC_Wireless;
+SET search_path = ABC_Wireless;
+
+CREATE TABLE inventory (
+  "product_ID" INTEGER,
+  "product_count" NUMERIC
+);
+
+INSERT INTO inventory 
+  ("product_ID", "product_count")
+VALUES
+  ('1', 23),
+  ('2', 17),
+  ('3', 15),
+  ('4', 60);
+
+CREATE TABLE bundle (
+  "Product_id1" INTEGER,
+  "Product_name1" VARCHAR,
+  "Product_price1" NUMERIC,
+  "Product_id2" INTEGER,
+  "Product_name2" VARCHAR,
+  "Product_price2" NUMERIC,
+  "Bundle_ID" VARCHAR (1)
+);
+
+INSERT INTO bundle 
+  ("Product_id1", "Product_name1", "Product_price1", "Product_id2", "Product_name2", "Product_price2", "Bundle_ID")
+VALUES
+  ('1', 'PremiPhone', 999, '4', 'Charger', 15, 'A'),
+  ('2', 'AdvanPhone', 799, '4', 'Charger', 15, 'B'),
+  ('3', 'BasicPhone', 599, '4', 'Charger', 15, 'C');
+
+CREATE TABLE plan (
+  "Plan_ID" INTEGER,
+  "Plan_Name" VARCHAR,
+  "Plan_Price" NUMERIC
+);
+
+INSERT INTO plan
+	("Plan_ID", "Plan_Name", "Plan_Price")
+VALUES
+	('1', 'Gold', 40),
+  ('2', 'Silver', 30),
+  ('3', 'Bronze', 20);
+
+CREATE TABLE employee (
+  "Employee_ID" INTEGER,
+  "First_Name" VARCHAR,
+  "Last_Name" VARCHAR
+);
+
+INSERT INTO employee
+  ("Employee_ID", "First_Name", "Last_Name")
+VALUES
+  ('01', 'Bob', 'Smith'),
+  ('02', 'Sue', 'Thompson'),
+  ('03', 'Taylor', 'Riley');
+
+CREATE TABLE promotion (
+  "Promo_ID" VARCHAR,
+  "Promotion_Name" VARCHAR,
+  "Percent_Discount" NUMERIC
+);
+
+INSERT INTO promotion
+  ("Promo_ID", "Promotion_Name", "Percent_Discount")
+VALUES
+  ('AA', 'Best', 0.90),
+  ('AB', 'Better', 0.95),
+  ('AC', 'Good', 0.975);
+
+CREATE TABLE customer
+  ("Customer_ID" VARCHAR,
+  "First_Name" VARCHAR,
+  "Last_Name" VARCHAR,
+  "Address" VARCHAR,
+  "Zip" INTEGER,
+  "Purchase_ID" INTEGER
+);
+
+INSERT INTO customer
+  ("Customer_ID", "First_Name", "Last_Name", "Address", "Zip", "Purchase_ID")
+VALUES
+  ('001', 'Fernanda', 'Wilkinson', '298 Hollins', '92201', '712'),
+  ('002', 'Leonard', 'Ayala', '374 Beck St', '92201', '713'),
+  ('003', 'Bodhi', 'Mendoza', '300 Fletcher', '92201', '714'),
+  ('004', 'Blair', 'Walsh', '942 Charles', '92201', '715'),
+  ('005', 'Cora', 'Blake', '232 Searing', '92201', '716');
+
+CREATE TABLE order_form
+  ("Date" DATE,
+  "Purchase_ID" INTEGER,
+  "Customer_ID" INTEGER,
+  "Bundle_ID" VARCHAR,
+  "Plan_ID" INTEGER,
+  "Promo_ID" VARCHAR,
+  "Employee_ID" INTEGER
+);
+
+INSERT INTO order_form
+  ("Date", "Purchase_ID", "Customer_ID", "Bundle_ID", "Plan_ID", "Promo_ID", "Employee_ID")
+VALUES
+  ('2023-07-02', '712', '001', 'C', '2', 'AA', '02'),
+  ('2023-07-03', '713', '002', 'A', '3', 'AC', '02'),
+  ('2023-07-04', '714', '003', 'B', '1', 'AB', '01'),
+  ('2023-07-05', '715', '004', 'C', '2', 'AC', '03'),
+  ('2023-07-06', '716', '005', 'A', '1', 'AA', '03');
