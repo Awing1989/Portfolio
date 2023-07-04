@@ -1,35 +1,20 @@
 CREATE SCHEMA ABC_Wireless;
 SET search_path = ABC_Wireless;
 
-CREATE TABLE inventory (
-  "product_ID" INTEGER,
-  "product_count" NUMERIC
+CREATE TABLE Inventory (
+  "Product_id" INTEGER,
+  "Product_name" VARCHAR,
+  "Product_price" NUMERIC,
+  "Product_count" INTEGER
 );
 
-INSERT INTO inventory 
-  ("product_ID", "product_count")
+INSERT INTO Inventory 
+  ("Product_id", "Product_name", "Product_price", "Product_count")
 VALUES
-  ('1', 23),
-  ('2', 17),
-  ('3', 15),
-  ('4', 60);
-
-CREATE TABLE bundle (
-  "Product_id1" INTEGER,
-  "Product_name1" VARCHAR,
-  "Product_price1" NUMERIC,
-  "Product_id2" INTEGER,
-  "Product_name2" VARCHAR,
-  "Product_price2" NUMERIC,
-  "Bundle_ID" VARCHAR (1)
-);
-
-INSERT INTO bundle 
-  ("Product_id1", "Product_name1", "Product_price1", "Product_id2", "Product_name2", "Product_price2", "Bundle_ID")
-VALUES
-  ('1', 'PremiPhone', 999, '4', 'Charger', 15, 'A'),
-  ('2', 'AdvanPhone', 799, '4', 'Charger', 15, 'B'),
-  ('3', 'BasicPhone', 599, '4', 'Charger', 15, 'C');
+  ('1', 'PremiPhone', 999, '23'),
+  ('2', 'AdvanPhone', 799, '17'),
+  ('3', 'BasicPhone', 599, '15'),
+  ('4', 'Charger', 14, '60');
 
 CREATE TABLE plan (
   "Plan_ID" INTEGER,
@@ -92,14 +77,14 @@ CREATE TABLE order_form
   ("Date" DATE,
   "Purchase_ID" INTEGER,
   "Customer_ID" INTEGER,
-  "Bundle_ID" VARCHAR,
+  "Product_ID" VARCHAR,
   "Plan_ID" INTEGER,
   "Promo_ID" VARCHAR,
   "Employee_ID" INTEGER
 );
 
 INSERT INTO order_form
-  ("Date", "Purchase_ID", "Customer_ID", "Bundle_ID", "Plan_ID", "Promo_ID", "Employee_ID")
+  ("Date", "Purchase_ID", "Customer_ID", "Product_ID", "Plan_ID", "Promo_ID", "Employee_ID")
 VALUES
   ('2023-07-02', '712', '001', 'C', '2', 'AA', '02'),
   ('2023-07-03', '713', '002', 'A', '3', 'AC', '02'),
