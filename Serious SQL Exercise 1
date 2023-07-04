@@ -1,0 +1,34 @@
+1. Which actor_id has the most number of unique film_id records in the dvd_rentals.film_actor table?
+
+SELECT COUNT(distinct film_id) AS number, actor.first_name, actor.last_name, actor.actor_id
+FROM dvd_rentals.film_actor as FA
+JOIN dvd_rentals.actor AS actor
+ON fa.actor_id=actor.actor_id
+GROUP BY actor.first_name, actor.last_name, actor.actor_id
+ORDER BY number desc;
+
+2.  How many distinct fid values are there for the 3rd most common price value in the dvd_rentals.nicer_but_slower_film_list table?
+
+SELECT COUNT(distinct fid) AS id, price
+FROM dvd_rentals.nicer_but_slower_film_list
+GROUP BY price
+ORDER BY id DESC;
+
+3.  How many unique country_id values exist in the dvd_rentals.city table?
+
+SELECT COUNT(distinct country_id) AS id
+FROM dvd_rentals.city
+
+4.  What percentage of overall total_sales does the Sports category make up in the dvd_rentals.sales_by_film_category table?
+
+SELECT category, ROUND(100 * total_sales / SUM(total_sales) OVER (),  2) AS percentage
+FROM `dvd_rentals.sales_by_film_category`
+
+5.  What percentage of unique fid values are in the Children category in the dvd_rentals.film_list table?
+
+SELECT category,
+  ROUND (100*COUNT(DISTINCT FID)/SUM(COUNT(DISTINCT FID)) OVER (), 2)
+AS percentage
+FROM dvd_rentals.film_list
+GROUP BY category
+ORDER BY percentage DESC;
