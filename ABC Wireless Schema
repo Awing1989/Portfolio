@@ -1,14 +1,14 @@
 CREATE SCHEMA ABC_Wireless;
 SET search_path = ABC_Wireless;
 
-CREATE TABLE Inventory (
+CREATE TABLE BIT_DB.ABCInventory (
   "Product_id" INTEGER,
   "Product_name" VARCHAR,
   "Product_price" NUMERIC,
   "Product_count" INTEGER
 );
 
-INSERT INTO Inventory 
+INSERT INTO BIT_DB.ABCInventory 
   ("Product_id", "Product_name", "Product_price", "Product_count")
 VALUES
   ('1', 'PremiPhone', 999, '23'),
@@ -16,46 +16,46 @@ VALUES
   ('3', 'BasicPhone', 599, '15'),
   ('4', 'Charger', 14, '60');
 
-CREATE TABLE plan (
+CREATE TABLE BIT_DB.ABCPlan (
   "Plan_ID" INTEGER,
   "Plan_Name" VARCHAR,
   "Plan_Price" NUMERIC
 );
 
-INSERT INTO plan
+INSERT INTO BIT_DB.ABCPlan
 	("Plan_ID", "Plan_Name", "Plan_Price")
 VALUES
-	('1', 'Gold', 40),
+  ('1', 'Gold', 40),
   ('2', 'Silver', 30),
   ('3', 'Bronze', 20);
 
-CREATE TABLE employee (
+CREATE TABLE BIT_DB.ABCEmployee (
   "Employee_ID" INTEGER,
   "First_Name" VARCHAR,
   "Last_Name" VARCHAR
 );
 
-INSERT INTO employee
+INSERT INTO BIT_DB.ABCEmployee
   ("Employee_ID", "First_Name", "Last_Name")
 VALUES
   ('01', 'Bob', 'Smith'),
   ('02', 'Sue', 'Thompson'),
   ('03', 'Taylor', 'Riley');
 
-CREATE TABLE promotion (
+CREATE TABLE BIT_DB.ABCPromotion (
   "Promo_ID" VARCHAR,
   "Promotion_Name" VARCHAR,
   "Percent_Discount" NUMERIC
 );
 
-INSERT INTO promotion
+INSERT INTO BIT_DB.ABCPromotion
   ("Promo_ID", "Promotion_Name", "Percent_Discount")
 VALUES
   ('AA', 'Best', 0.90),
   ('AB', 'Better', 0.95),
   ('AC', 'Good', 0.975);
 
-CREATE TABLE customer
+CREATE TABLE BIT_DB.ABCCustomer
   ("Customer_ID" VARCHAR,
   "First_Name" VARCHAR,
   "Last_Name" VARCHAR,
@@ -64,7 +64,7 @@ CREATE TABLE customer
   "Purchase_ID" INTEGER
 );
 
-INSERT INTO customer
+INSERT INTO BIT_DB.ABCCustomer
   ("Customer_ID", "First_Name", "Last_Name", "Address", "Zip", "Purchase_ID")
 VALUES
   ('001', 'Fernanda', 'Wilkinson', '298 Hollins', '92201', '712'),
@@ -73,7 +73,7 @@ VALUES
   ('004', 'Blair', 'Walsh', '942 Charles', '92201', '715'),
   ('005', 'Cora', 'Blake', '232 Searing', '92201', '716');
 
-CREATE TABLE order_form
+CREATE TABLE BIT_DB.ABCOrder_form
   ("Date" DATE,
   "Purchase_ID" INTEGER,
   "Customer_ID" INTEGER,
@@ -83,7 +83,7 @@ CREATE TABLE order_form
   "Employee_ID" INTEGER
 );
 
-INSERT INTO order_form
+INSERT INTO BIT_DB.ABCOrder_form
   ("Date", "Purchase_ID", "Customer_ID", "Product_ID", "Plan_ID", "Promo_ID", "Employee_ID")
 VALUES
   ('2023-07-02', '712', '001', 'C', '2', 'AA', '02'),
