@@ -1,10 +1,38 @@
 1.  How many Chargers does the cellphone store have on hand (in inventory)?
+SELECT product_name, product_count
+FROM ABCInventory
+WHERE Product_name='Charger'
 
-2.  What percentage of purchased Plans were plan A.
+2.  Which plan did Cora Blake sign up for?
+SELECT abcp.Plan_name, c.last_name
+FROM ABCOrder_Form AS ordf
+JOIN ABCCustomer AS c
+ON c.Customer_ID=ordf.Customer_ID
+JOIN ABCPlan AS ABCP
+ON ordf.Plan_ID=abcp.plan_id
+WHERE c.last_name='Blake';
+
+3.  Which employee worked with both Blair Walsh and Cora Blake?
+SELECT abce.first_name, abce.last_name
+FROM ABCOrder_Form AS ordf
+FULL OUTER JOIN ABCCustomer AS ABCC
+ON ordf.Customer_ID=abcc.customer_id
+FULL OUTER JOIN ABCEmployee AS ABCE
+ON ordf.employee_id=abce.employee_id
+WHERE abcc.last_name='Walsh'
+OR abcc.last_name='Blake';
+
+4.  A customer is looking for the type of phone their grandma has.  They can't remember their grandma's address, just know it's "300 Something."  
+What type of phone does she have?
+
+
+
+
+What percentage of purchased plans were a Gold Plan?
 
 SELECT 
-100*COUNT(*)/SUM(COUNT(*))
 
+4.  How much 
 
 1.  
 
