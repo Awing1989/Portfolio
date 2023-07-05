@@ -32,7 +32,11 @@ FULL JOIN ABCInventory AS i
 ON i.Product_id=f.Product_ID
 WHERE c.address LIKE '300%';
 
-5.  What percentage of purchased plans were a Gold Plan?
+5.  Boss wants the date changed from yyyy-mm-dd to 2023-07-03 to 	Mon dd, yy.
+
+
+
+6.  What percentage of purchased plans were a Gold Plan?
 
 SELECT COUNT(DISTINCT abcp.plan_name) / SUM( COUNT( DISTINCT abcp.plan_name)) OVER (), 02) AS percentage
 FROM BIT_DP.ABCPlan AS abcp
