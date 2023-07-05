@@ -11,10 +11,10 @@ CREATE TABLE BIT_DB.ABCInventory (
 INSERT INTO BIT_DB.ABCInventory 
   ("Product_id", "Product_name", "Product_price", "Product_count")
 VALUES
-  ('1', 'PremiPhone', 999, '23'),
-  ('2', 'AdvanPhone', 799, '17'),
-  ('3', 'BasicPhone', 599, '15'),
-  ('4', 'Charger', 14, '60');
+  ('A', 'PremiPhone', 999, '23'),
+  ('B', 'AdvanPhone', 799, '17'),
+  ('C', 'BasicPhone', 599, '15'),
+  ('D', 'Charger', 14, '60');
 
 CREATE TABLE BIT_DB.ABCPlan (
   "Plan_ID" INTEGER,
