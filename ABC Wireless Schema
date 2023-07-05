@@ -13,8 +13,7 @@ INSERT INTO BIT_DB.ABCInventory
 VALUES
   ('A', 'PremiPhone', 999, '23'),
   ('B', 'AdvanPhone', 799, '17'),
-  ('C', 'BasicPhone', 599, '15'),
-  ('D', 'Charger', 14, '60');
+  ('C', 'BasicPhone', 599, '15');
 
 CREATE TABLE BIT_DB.ABCPlan (
   "Plan_ID" INTEGER,
