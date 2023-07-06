@@ -1,0 +1,130 @@
+/*
+This is a project I made to showcase my skill level with SQL.
+*/
+
+CREATE SCHEMA ABC_Wireless;
+SET search_path = ABC_Wireless;
+
+CREATE TABLE BIT_DB.ABCInventory (
+  "Product_id" INTEGER,
+  "Product_name" VARCHAR,
+  "Product_price" NUMERIC,
+  "Product_count" INTEGER
+);
+
+INSERT INTO BIT_DB.ABCInventory 
+  ("Product_id", "Product_name", "Product_price", "Product_count")
+VALUES
+  ('A', 'PremiPhone', 999, '23'),
+  ('B', 'AdvanPhone', 799, '17'),
+  ('C', 'BasicPhone', 599, '15');
+
+CREATE TABLE BIT_DB.ABCPlan (
+  "Plan_ID" INTEGER,
+  "Plan_Name" VARCHAR,
+  "Plan_Price" NUMERIC
+);
+
+INSERT INTO BIT_DB.ABCPlan
+	("Plan_ID", "Plan_Name", "Plan_Price")
+VALUES
+  ('1', 'Gold', 40),
+  ('2', 'Silver', 30),
+  ('3', 'Bronze', 20);
+
+CREATE TABLE BIT_DB.ABCEmployee (
+  "Employee_ID" INTEGER,
+  "First_Name" VARCHAR,
+  "Last_Name" VARCHAR
+);
+
+INSERT INTO BIT_DB.ABCEmployee
+  ("Employee_ID", "First_Name", "Last_Name")
+VALUES
+  ('01', 'Bob', 'Smith'),
+  ('02', 'Sue', 'Thompson'),
+  ('03', 'Taylor', 'Riley');
+
+CREATE TABLE BIT_DB.ABCPromotion (
+  "Promo_ID" VARCHAR,
+  "Promotion_Name" VARCHAR,
+  "Percent_Discount" NUMERIC
+);
+
+INSERT INTO BIT_DB.ABCPromotion
+  ("Promo_ID", "Promotion_Name", "Percent_Discount")
+VALUES
+  ('AA', 'Best', 0.90),
+  ('AB', 'Better', 0.95),
+  ('AC', 'Good', 0.975);
+
+CREATE TABLE BIT_DB.ABCCustomer
+  ("Customer_ID" VARCHAR,
+  "First_Name" VARCHAR,
+  "Last_Name" VARCHAR,
+  "Address" VARCHAR,
+  "Zip" INTEGER,
+  "Purchase_ID" INTEGER
+);
+
+INSERT INTO BIT_DB.ABCCustomer
+  ("Customer_ID", "First_Name", "Last_Name", "Address", "Zip", "Purchase_ID")
+VALUES
+  ('001', 'Fernanda', 'Wilkinson', '298 Hollins', '92201', '712'),
+  ('002', 'Leonard', 'Ayala', '374 Beck St', '92201', '713'),
+  ('003', 'Bodhi', 'Mendoza', '300 Fletcher', '92201', '714'),
+  ('004', 'Blair', 'Walsh', '942 Charles', '92201', '715'),
+  ('005', 'Cora', 'Blake', '232 Searing', '92201', '716');
+
+CREATE TABLE BIT_DB.ABCOrder_form
+  ("Date" DATE,
+  "Purchase_ID" INTEGER,
+  "Customer_ID" INTEGER,
+  "Product_ID" VARCHAR,
+  "Plan_ID" INTEGER,
+  "Promo_ID" VARCHAR,
+  "Employee_ID" INTEGER
+);
+
+INSERT INTO BIT_DB.ABCOrder_form
+  ("Date", "Purchase_ID", "Customer_ID", "Product_ID", "Plan_ID", "Promo_ID", "Employee_ID")
+VALUES
+  ('2023-07-02', '712', '001', 'C', '2', 'AA', '02'),
+  ('2023-07-03', '713', '002', 'A', '3', 'AC', '02'),
+  ('2023-07-04', '714', '003', 'B', '1', 'AB', '01'),
+  ('2023-07-05', '715', '004', 'C', '2', 'AC', '03'),
+  ('2023-07-06', '716', '005', 'A', '1', 'AA', '03');
+
+1.  How many Chargers does the cellphone store have on hand (in inventory)?
+SELECT product_name, product_count
+FROM ABCInventory
+WHERE Product_name='Charger'
+
+2.  Which plan did Cora Blake sign up for?
+SELECT abcp.Plan_name, c.last_name
+FROM ABCOrder_Form AS ordf
+JOIN ABCCustomer AS c
+ON c.Customer_ID=ordf.Customer_ID
+JOIN ABCPlan AS ABCP
+ON ordf.Plan_ID=abcp.plan_id
+WHERE c.last_name='Blake';
+
+3.  Which employee worked with both Blair Walsh and Cora Blake?
+SELECT abce.first_name, abce.last_name
+FROM ABCOrder_Form AS ordf
+FULL OUTER JOIN ABCCustomer AS ABCC
+ON ordf.Customer_ID=abcc.customer_id
+FULL OUTER JOIN ABCEmployee AS ABCE
+ON ordf.employee_id=abce.employee_id
+WHERE abcc.last_name='Walsh'
+OR abcc.last_name='Blake';
+
+4.  A customer is looking for the type of phone their grandfather has.  They can't remember their grandfather's address, just know it's "300 Something."  
+What type of phone does she have?
+SELECT i.product_name
+FROM ABCCustomer AS c
+FULL JOIN abcorder_form AS f 
+ON c.Customer_ID=f.Customer_ID
+FULL JOIN ABCInventory AS i
+ON i.Product_id=f.Product_ID
+WHERE c.address LIKE '300%';
