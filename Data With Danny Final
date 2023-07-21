@@ -50,5 +50,43 @@ WHERE item_rank=1
 ORDER BY customer_id;
 
 6.  Which item was purchased first by the customer after they became a member?
+SELECT sub.customer_id, product_name, First_order_as_member
+FROM dannys_diner.sales
+INNER JOIN 
+(SELECT sales.customer_id, MIN(order_date) AS First_order_as_member
+FROM dannys_diner.sales
+JOIN dannys_diner.members
+ON sales.customer_id=members.customer_id
+WHERE order_date >= join_date
+GROUP BY sales.customer_id) AS sub
+ON sales.order_date=sub.First_order_as_member
+AND sales.customer_id=sub.customer_id
+JOIN dannys_diner.menu
+ON sales.product_id=menu.product_id
+
+7.  Which item was purchased just before the customer became a member?
+SELECT sub.customer_id, product_name, Last_order_before_member
+FROM dannys_diner.sales
+INNER JOIN 
+(SELECT sales.customer_id, MAX(sales.order_date) AS Last_order_before_member
+FROM dannys_diner.sales
+JOIN dannys_diner.members
+ON sales.customer_id=members.customer_id
+WHERE sales.order_date < members.join_date
+GROUP BY sales.customer_id) AS sub
+ON sales.order_date=sub.Last_order_before_member
+AND sales.customer_id=sub.customer_id
+JOIN dannys_diner.menu
+ON sales.product_id=menu.product_id
+
+8.  What is the total items and amount spent for each member before they became a member?
+SELECT sales.customer_id AS Customer, COUNT(Distinct sales.product_id) AS Unique_Quantity, SUM(price) AS Total_Spent
+FROM dannys_diner.sales
+JOIN dannys_diner.members
+ON sales.customer_id=members.customer_id
+JOIN dannys_diner.menu
+ON sales.product_id=menu.product_id
+WHERE order_date < join_date
+GROUP BY sales.customer_id;
 
 
