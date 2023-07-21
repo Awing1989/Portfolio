@@ -1,0 +1,54 @@
+1.  What is the total amount each customer spent at the restaurant?
+SELECT customer_id, SUM(menu.price)
+FROM dannys_diner.sales 
+JOIN dannys_diner.menu
+ON sales.product_id=menu.product_id
+GROUP BY customer_id;
+
+2.  How many days has each customer visited the restaurant?
+SELECT customer_id, COUNT(distinct order_date)
+FROM dannys_diner.sales
+GROUP BY customer_id;
+
+3.  What was the first item from the menu purchased by each customer?
+SELECT distinct customer_id, menu.product_name, sub.first_day
+FROM dannys_diner.sales
+JOIN 
+(SELECT MIN(order_date) AS First_Day
+FROM dannys_diner.sales) AS sub
+ON sales.order_date=sub.first_day
+JOIN dannys_diner.menu
+ON sales.product_id=menu.product_id;
+
+4.  What is the most purchased item on the menu and how many times was it purchased by all customers?
+SELECT COUNT(sales.product_id) AS times_purchased, product_name
+FROM dannys_diner.sales
+JOIN dannys_diner.menu
+ON sales.product_id=menu.product_id
+GROUP BY product_name
+ORDER BY times_purchased DESC
+LIMIT 1
+
+5.  Which item was the most popular for each customer?
+WITH sub AS 
+(SELECT 
+customer_id,
+menu.product_name,
+COUNT(sales.product_id) AS purchased,
+RANK () OVER (
+  PARTITION BY sales.product_id
+  ORDER BY COUNT(sales.product_id) DESC
+) AS item_rank
+FROM dannys_diner.sales AS sales
+JOIN dannys_diner.menu AS menu
+ON sales.product_id=menu.product_id
+GROUP BY customer_id, sales.product_id, menu.product_name)
+
+SELECT customer_id, product_name, purchased
+FROM sub
+WHERE item_rank=1
+ORDER BY customer_id;
+
+6.  Which item was purchased first by the customer after they became a member?
+
+
