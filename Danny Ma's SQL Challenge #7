@@ -1,0 +1,48 @@
+A. High Level Sales Analysis
+
+1.  What was the total quantity sold for all products?
+SELECT pd.product_name, SUM(qty) AS Total_Sold
+FROM balanced_tree.sales AS s
+FULL OUTER JOIN balanced_tree.product_details AS pd
+ON s.prod_id=pd.product_id
+GROUP BY pd.product_name
+ORDER BY pd.product_name;
+
+2.  What is the total generated revenue for all products before discounts?
+SELECT SUM(qty*s.price) AS Total_Revenue
+FROM balanced_tree.sales AS s;
+
+3.  What was the total discount amount for all products?
+SELECT SUM(qty*price*discount*0.01)
+FROM balanced_tree.sales
+WHERE discount != 0;
+
+B. Transaction Analysis
+1.  How many unique transactions were there?
+SELECT COUNT(distinct txn_id)
+FROM balanced_tree.sales
+
+2.  What is the average unique products purchased in each transaction?
+WITH sub AS (SELECT COUNT(distinct prod_id) AS avg_uniq_prod, txn_id
+FROM balanced_tree.sales AS s
+FULL OUTER JOIN balanced_tree.product_details AS pd
+ON s.prod_id=pd.product_id
+GROUP BY txn_id)
+
+SELECT ROUND(AVG(avg_uniq_prod)) AS answer
+FROM sub;
+
+3.  What are the 25th, 50th and 75th percentile values for the revenue per transaction?
+
+4.  What is the average discount value per transaction?
+WITH sub AS 
+
+(SELECT SUM(qty*price*discount) AS discount, txn_id
+FROM balanced_tree.sales
+GROUP BY txn_id)
+
+SELECT ROUND(AVG(discount)*0.01, 2) AS avg_discount
+FROM sub;
+
+5.  What is the percentage split of all transactions for members vs non-members?
+What is the average revenue for member transactions and non-member transactions?
