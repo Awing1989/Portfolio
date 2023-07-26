@@ -40,10 +40,27 @@ GROUP BY txn_id)
 SELECT ROUND(AVG(revenue), 2)
 FROM sub
 
+4.  What is the average discount value per transaction?
+WITH sub AS (SELECT txn_id, SUM(qty*price*discount) AS revenue
+FROM balanced_tree.sales
+GROUP BY txn_id)
 
-What is the average discount value per transaction?
-What is the percentage split of all transactions for members vs non-members?
-What is the average revenue for member transactions and non-member transactions?
+SELECT ROUND(0.01*AVG(revenue), 2)
+FROM sub
+
+5.  What is the percentage split of all transactions for members vs non-members?
+WITH sub AS 
+
+(SELECT member, COUNT(distinct txn_id) AS txn_count
+FROM balanced_tree.sales
+GROUP BY member)
+
+SELECT member, txn_count, ROUND (100.0*txn_count/SUM(txn_count) OVER (), 2)
+FROM sub
+
+6.  What is the average revenue for member transactions and non-member transactions?
+
+
 C. Product Analysis
 What are the top 3 products by total revenue before discount?
 What is the total quantity, revenue and discount for each segment?
