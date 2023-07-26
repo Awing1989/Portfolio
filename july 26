@@ -1,0 +1,58 @@
+A. High Level Sales Analysis
+1.  What was the total quantity sold for all products?
+SELECT product_name, SUM(qty)
+FROM balanced_tree.sales AS s
+FULL JOIN balanced_tree.product_details AS pd
+ON s.prod_id=pd.product_id
+GROUP BY product_name
+
+2.  What is the total generated revenue for all products before discounts?
+SELECT SUM(qty*price) AS Total_Revenue
+FROM balanced_tree.sales
+
+3.  What was the total discount amount for all products?
+SELECT SUM(qty*price*discount) AS Total_Revenue
+FROM balanced_tree.sales
+
+B. Transaction Analysis
+1.  How many unique transactions were there?
+SELECT COUNT(distinct txn_id)
+FROM balanced_tree.sales
+
+2.  What is the average unique products purchased in each transaction?
+WITH sub AS 
+
+(SELECT s.txn_id, COUNT(distinct product_id) AS Unique_Product
+FROM balanced_tree.sales AS s
+FULL OUTER JOIN balanced_tree.product_details AS pd
+ON s.prod_id=pd.product_id
+GROUP BY s.txn_id)
+
+SELECT ROUND(AVG(sub.Unique_Product)) AS Answer
+FROM sub
+
+3.  What are the 25th, 50th and 75th percentile values for the revenue per transaction?
+WITH sub AS 
+(SELECT txn_id, SUM(qty*price*discount*.01) AS revenue
+FROM balanced_tree.sales
+GROUP BY txn_id)
+
+SELECT ROUND(AVG(revenue), 2)
+FROM sub
+
+
+What is the average discount value per transaction?
+What is the percentage split of all transactions for members vs non-members?
+What is the average revenue for member transactions and non-member transactions?
+C. Product Analysis
+What are the top 3 products by total revenue before discount?
+What is the total quantity, revenue and discount for each segment?
+What is the top selling product for each segment?
+What is the total quantity, revenue and discount for each category?
+What is the top selling product for each category?
+What is the percentage split of revenue by product for each segment?
+What is the percentage split of revenue by segment for each category?
+What is the percentage split of total revenue by category?
+What is the total transaction “penetration” for each product? (hint: penetration = number of transactions where at least 1 quantity of a product was purchased divided by total number of transactions)
+What is the most common combination of at least 1 quantity of any 3 products in a 1 single transaction?
+D. Bonus Challenge
