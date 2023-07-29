@@ -1,3 +1,4 @@
+"Break Into Tech" Monthly Sales Project
 1.  How many orders were placed in January? 
 SELECT COUNT(orderID) 
 FROM JanSales
