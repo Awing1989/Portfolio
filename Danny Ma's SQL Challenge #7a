@@ -153,9 +153,17 @@ FROM sub
 ORDER BY sub.category_id, sub.category_name, revenue_percentage DESC
 
 8.  What is the percentage split of total revenue by category?
-What is the total transaction “penetration” for each product? (hint: penetration = number of transactions where at least 1 quantity of a product was purchased divided by total number of transactions)
-What is the most common combination of at least 1 quantity of any 3 products in a 1 single transaction?
-D. Bonus Challenge
-Use a single SQL query to transform the product_hierarchy and product_prices datasets to the product_details table.
+SELECT pd.category_id, pd.category_name, SUM(qty*s.price) AS Revenue, ROUND(100*SUM(qty*s.price)/(SELECT SUM(qty*price) FROM balanced_tree.sales), 2)
+FROM balanced_tree.sales AS s
+JOIN balanced_tree.product_details AS pd
+ON s.prod_id=pd.product_id
+GROUP BY 1, 2;
 
-Hint: you may want to consider using a recursive CTE to solve this problem!
+9.  What is the total transaction “penetration” for each product? (hint: penetration = number of transactions where at least 1 quantity of a product was purchased divided by total number of transactions)
+SELECT pd.product_id, pd.product_name, 
+ROUND(100*COUNT(pd.product_id)/(SELECT COUNT(distinct txn_id) FROM balanced_tree.sales), 2) AS Penetration
+FROM balanced_tree.sales AS s
+JOIN balanced_tree.product_details AS pd
+ON s.prod_id=pd.product_id
+GROUP BY 1, 2
+ORDER BY penetration DESC;
