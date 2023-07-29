@@ -1,3 +1,5 @@
+Khan Academy SQL Project 1: Store
+
 CREATE TABLE Andy_CD_STORE (id INTEGER PRIMARY KEY, name TEXT, quantity_of_songs INTEGER, release_year integer, price INTEGER);
 INSERT INTO Andy_CD_STORE VALUES (1, 'Good News', 12, 2003, 9.99);
 INSERT INTO Andy_CD_STORE VALUES (2, 'In Rainbows', 11, 2009, 9.99);
@@ -34,3 +36,54 @@ INSERT INTO store VALUES (12, 'Green Pepper', 0.79, 0, 0);
 INSERT INTO store VALUES (13, 'Potatoes', 1.29, 0, 0);
 INSERT INTO store VALUES (14, 'Strawberries', 4.99, 0, 0);
 INSERT INTO store VALUES (15, 'Blueberries', 6.99, 0,  0);
+
+Khan Academy SQL Project 2: Country Population
+
+SELECT * FROM countries;
+
+SELECT name, MAX(density_per_sq_km) AS Country_with_Highest_Population_Density FROM countries;
+SELECT name, MIN(density_per_sq_km) AS Country_with_Lowest_Population_Density FROM countries;
+SELECT AVG(density_per_sq_km) as Average_Global_Population_Density FROM countries;
+
+SELECT name FROM countries WHERE population<1000000 AND population >800000 GROUP BY name HAVING density_per_sq_km > 100;
+
+SELECT COUNT (*),
+CASE
+WHEN population <100000 THEN 'Really Small'
+WHEN population <1000000 THEN 'Small'
+WHEN population <10000000 THEN 'Medium'
+WHEN population <100000000 THEN 'Big'
+ELSE 'Null'
+END AS "Population_category" FROM countries
+GROUP BY "Population_Category";
+
+SELECT name AS Tiny_Countries_Or_Giant_Countries FROM countries WHERE population <100000 OR population>1000000000;
+
+Khan Academy SQL Project 3: Musicians
+
+/* Create table about the people and what they do here */
+CREATE TABLE Musician (id INTEGER PRIMARY KEY, name TEXT, band TEXT);
+INSERT INTO musician VALUES (1, 'John Lennon', 'The Beatles');
+INSERT INTO musician VALUES (2, 'Paul McCartney', 'The Beatles');
+INSERT INTO musician VALUES (3, 'George Harrison', 'The Beatles');
+INSERT INTO musician VALUES (4, 'Ringo Starr', 'The Beatles');
+INSERT INTO musician VALUES (5, 'Beck Hansen', 'Beck');
+INSERT INTO musician VALUES (6, 'Thom Yorke', 'Radiohead');
+INSERT INTO musician VALUES (7, 'Severin Bozung', 'Seve vs Evan');
+INSERT INTO musician VALUES (8, 'Wesley Schultz', 'The Lumineers');
+
+CREATE TABLE details (persons1_id TEXT, country TEXT, Dancer TEXT, living TEXT);
+
+INSERT INTO details VALUES (1, 'UK', 'No', 'No');
+INSERT INTO details VALUES (2, 'UK', 'Yes', 'Yes');
+INSERT INTO details VALUES (3, 'UK', 'No', 'No');
+INSERT INTO details VALUES (4, 'UK', 'Yes', 'Yes');
+INSERT INTO details VALUES (5, 'USA', 'Yes', 'Yes');
+INSERT INTO details VALUES (6, 'UK', 'Fine', 'Yes');
+INSERT INTO details VALUES (7, 'USA', 'Yes', 'Yes');
+INSERT INTO details VALUES (8, 'USA', 'Yes', 'Yes');
+
+SELECT m.name, m.band, d.country, d.dancer, d.living
+FROM musician m
+JOIN details d
+ON m.id=d.persons1_id;
