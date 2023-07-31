@@ -54,12 +54,30 @@ LIMIT 1;
 
 7.  For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 
+8.  How many pizzas were delivered that had both exclusions and extras?
 
-How many pizzas were delivered that had both exclusions and extras?
-What was the total volume of pizzas ordered for each hour of the day?
-What was the volume of orders for each day of the week?
+9.  What was the total volume of pizzas ordered for each hour of the day?
+SELECT EXTRACT(hour FROM order_time) AS Hour, COUNT(pizza_id) AS pizzas_ordered
+FROM pizza_runner.customer_orders AS co
+INNER JOIN pizza_runner.runner_orders AS ro
+ON co.order_id=ro.order_id
+WHERE ro.pickup_time IS NOT NULL
+GROUP BY HOUR
+ORDER BY hour
+
+10.  What was the volume of orders for each day of the week?
+SELECT EXTRACT (dayofweek FROM order_time) AS day, COUNT(pizza_id) AS pizzas_ordered
+FROM pizza_runner.customer_orders AS co
+INNER JOIN pizza_runner.runner_orders AS ro
+ON co.order_id=ro.order_id
+WHERE ro.pickup_time IS NOT NULL
+GROUP BY day
+ORDER BY day
+
 B. Runner and Customer Experience
-How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+1.  How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+
+
 What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 Is there any relationship between the number of pizzas and how long the order takes to prepare?
 What was the average distance travelled for each customer?
